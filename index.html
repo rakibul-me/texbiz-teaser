@@ -6,7 +6,6 @@
     <link rel="manifest" href="manifest.json" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-
     <title>Teaser Reveal</title>
     <style>
       body {
@@ -31,12 +30,25 @@
     <h1 class="line">The answers lie within…</h1>
 
     <script>
+      // Text reveal animation
       let lines = document.querySelectorAll(".line");
       lines.forEach((line, index) => {
         setTimeout(() => {
-          line.style.display = "block";
-          line.style.opacity = "1";
-        }, index * 2000); // Change delay as needed
+          requestAnimationFrame(() => {
+            line.style.display = "block";
+            line.style.opacity = "1";
+          });
+        }, index * 2000);
+      });
+
+      // Prompt PWA install (only appears if not installed)
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        setTimeout(() => {
+          deferredPrompt.prompt();
+        }, 5000); // Prompt install after 5 seconds
       });
     </script>
   </body>
