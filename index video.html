@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Teaser Reveal</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      video {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video" autoplay muted playsinline>
+      <source src="Presentation1.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <script>
+      const video = document.getElementById("video");
+
+      // Wait until the entire video is loaded
+      video.oncanplaythrough = function () {
+        video.style.display = "block"; // Show video
+        video.play();
+      };
+    </script>
+
+    <script>
+      // Prompt PWA install (only appears if not installed)
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        setTimeout(() => {
+          deferredPrompt.prompt();
+        }, 5000); // Prompt install after 5 seconds
+      });
+    </script>
+  </body>
+</html>

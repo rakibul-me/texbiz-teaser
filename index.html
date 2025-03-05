@@ -6,42 +6,354 @@
     <link rel="manifest" href="manifest.json" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Teaser Reveal</title>
+    <title>TexBiz Teaser</title>
     <style>
-      body {
-        background-color: black;
+      @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;700&display=swap");
+
+      :root {
+        --shine-size: 250px;
+        --bg: #000000;
+        --clr-1: #00c2ff;
+        --clr-2: #3e516d;
+        --clr-3: #0b3a81;
+        --clr-4: #1d3251;
+
+        --blur: 1rem;
+        --fs: 3.5rem;
+        --ls: clamp(-1.75px, -0.25vw, -3.5px);
       }
+
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #000000;
+        color: white;
+        font-family: "Manrope", sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
         overflow: hidden;
       }
-      video {
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        font-weight: 800;
+      }
+      .final {
+        position: absolute;
+        display: block;
+      }
+
+      .question {
+        font-size: 2em;
+        font-weight: 300;
+        opacity: 0;
+        margin: 0.25rem 0;
+        transform: translateY(30px);
+      }
+
+      .final {
+        font-size: 3em;
+        font-weight: bold;
+        margin-top: 40px;
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      .coming-soon {
+        font-size: 2rem;
+      }
+
+      .btn-shine {
+        padding: 12px 48px;
+        color: #fff;
+        background: linear-gradient(to right, #4d4d4d 0, #fff 10%, #4d4d4d 20%);
+        background-position: 0;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 3s infinite linear;
+        animation-fill-mode: forwards;
+        -webkit-text-size-adjust: none;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      @-moz-keyframes shine {
+        0% {
+          background-position: 0;
+        }
+        60% {
+          background-position: var(--shine-size);
+        }
+        100% {
+          background-position: var(--shine-size);
+        }
+      }
+      @-webkit-keyframes shine {
+        0% {
+          background-position: 0;
+        }
+        60% {
+          background-position: var(--shine-size);
+        }
+        100% {
+          background-position: var(--shine-size);
+        }
+      }
+      @-o-keyframes shine {
+        0% {
+          background-position: 0;
+        }
+        60% {
+          background-position: var(--shine-size);
+        }
+        100% {
+          background-position: var(--shine-size);
+        }
+      }
+      @keyframes shine {
+        0% {
+          background-position: 0;
+        }
+        60% {
+          background-position: var(--shine-size);
+        }
+        100% {
+          background-position: var(--shine-size);
+        }
+      }
+
+      .texbiz {
+        font-size: var(--fs);
+        font-weight: 800;
+        letter-spacing: var(--ls);
+        position: relative;
+        overflow: hidden;
+        background: var(--bg);
+        margin: 0;
+      }
+
+      .aurora {
         position: absolute;
         top: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        display: none;
+        z-index: 2;
+        mix-blend-mode: darken;
+        pointer-events: none;
+      }
+
+      .aurora__item {
+        overflow: hidden;
+        position: absolute;
+        width: 60vw;
+        height: 60vw;
+        background-color: var(--clr-1);
+        border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+        filter: blur(var(--blur));
+        mix-blend-mode: overlay;
+      }
+
+      .aurora__item:nth-of-type(1) {
+        top: -50%;
+        animation: aurora-border 6s ease-in-out infinite,
+          aurora-1 10s ease-in-out infinite alternate;
+      }
+
+      .aurora__item:nth-of-type(2) {
+        background-color: var(--clr-3);
+        right: 0;
+        top: 0;
+        animation: aurora-border 6s ease-in-out infinite,
+          aurora-2 10s ease-in-out infinite alternate;
+      }
+
+      .aurora__item:nth-of-type(3) {
+        background-color: var(--clr-2);
+        left: 0;
+        bottom: 0;
+        animation: aurora-border 6s ease-in-out infinite,
+          aurora-3 6s ease-in-out infinite alternate;
+      }
+
+      .aurora__item:nth-of-type(4) {
+        background-color: var(--clr-4);
+        right: 0;
+        bottom: -50%;
+        animation: aurora-border 6s ease-in-out infinite,
+          aurora-4 18s ease-in-out infinite alternate;
+      }
+
+      @keyframes aurora-1 {
+        0% {
+          top: 0;
+          right: 0;
+        }
+
+        50% {
+          top: 100%;
+          right: 75%;
+        }
+
+        75% {
+          top: 100%;
+          right: 25%;
+        }
+
+        100% {
+          top: 0;
+          right: 0;
+        }
+      }
+
+      @keyframes aurora-2 {
+        0% {
+          top: -50%;
+          left: 0%;
+        }
+
+        60% {
+          top: 100%;
+          left: 75%;
+        }
+
+        85% {
+          top: 100%;
+          left: 25%;
+        }
+
+        100% {
+          top: -50%;
+          left: 0%;
+        }
+      }
+
+      @keyframes aurora-3 {
+        0% {
+          bottom: 0;
+          left: 0;
+        }
+
+        40% {
+          bottom: 100%;
+          left: 75%;
+        }
+
+        65% {
+          bottom: 40%;
+          left: 50%;
+        }
+
+        100% {
+          bottom: 0;
+          left: 0;
+        }
+      }
+
+      @keyframes aurora-4 {
+        0% {
+          bottom: -50%;
+          right: 0;
+        }
+
+        50% {
+          bottom: 0%;
+          right: 40%;
+        }
+
+        90% {
+          bottom: 50%;
+          right: 25%;
+        }
+
+        100% {
+          bottom: -50%;
+          right: 0;
+        }
+      }
+
+      @keyframes aurora-border {
+        0% {
+          border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+        }
+
+        25% {
+          border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+        }
+
+        50% {
+          border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+        }
+
+        75% {
+          border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+        }
+
+        100% {
+          border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+        }
       }
     </style>
   </head>
   <body>
-    <video id="video" autoplay muted playsinline>
-      <source src="Presentation1.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <div class="container">
+      <div class="question">What is the solution?</div>
+      <div class="question">What is the opportunity?</div>
+      <div class="question">What is the risk?</div>
+      <div class="question">The answers lie within…</div>
+      <div class="final">
+        <div class="texbiz">
+          TexBiz 4.0
+          <div class="aurora">
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+          </div>
+        </div>
+        <div class="coming-soon btn-shine">Coming Soon</div>
+      </div>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-      const video = document.getElementById("video");
+      gsap.to(".question", {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "power2.out",
+        stagger: 1.75,
+      });
 
-      // Wait until the entire video is loaded
-      video.oncanplaythrough = function () {
-        video.style.display = "block"; // Show video
-        video.play();
-      };
+      gsap.to(".question", {
+        opacity: 0,
+        y: -30,
+        duration: 1,
+        delay: 6.5,
+        ease: "power2.inOut",
+        onComplete: () => {
+          document
+            .querySelectorAll(".question")
+            .forEach((el) => (el.style.display = "none"));
+        },
+      });
+
+      gsap.to(".final", {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.5)",
+        delay: 7.5,
+      });
     </script>
 
     <script>
